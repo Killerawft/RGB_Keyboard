@@ -9,7 +9,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * Copyright (c) 2017 STMicroelectronics International N.V. 
+  * Copyright (c) 2018 STMicroelectronics International N.V. 
   * All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without 
@@ -61,16 +61,20 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+static void MX_NVIC_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-
+void ws2812_init(void);
+void ws2812_set_color(uint8_t red, uint8_t green, uint8_t blue);
+GPIO_PinState read_key(uint16_t row_pin, uint16_t col_pin);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -127,14 +131,17 @@ int main(void)
   MX_USB_DEVICE_Init();
   MX_TIM2_Init();
 
-  /* USER CODE BEGIN 2 */
+  /* Initialize interrupts */
+  MX_NVIC_Init();
 
+  /* USER CODE BEGIN 2 */
+  ws2812_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-/*  SET_LED(LED_RED)
+  /*SET_LED(LED_RED)
   SET_LED(LED_ORANGE)
   HAL_Delay(500);
 
@@ -150,14 +157,29 @@ int main(void)
   RESET_LED(LED_ORANGE)
   HAL_Delay(500);*/
 
+  // SET_LED(LED_RED);
+  // RESET_LED(LED_ORANGE);
+
   while (1)
   {
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
 
-	  RESET_LED(LED_RED);
-	  SET_LED(LED_ORANGE);
+	  if (read_key(ROW_0, COL_0))
+	  {
+		 mediaHID.keys = USB_HID_VOL_DEC;
+		 USBD_HID_SendReport(&hUsbDeviceFS, &mediaHID, sizeof(struct mediaHID_t));
+		 HAL_Delay(30);
+		 mediaHID.keys = 0;
+		 USBD_HID_SendReport(&hUsbDeviceFS, &mediaHID, sizeof(struct mediaHID_t));
+		 HAL_Delay(30);
+	  }
+
+
+	  // TOGGLE_LED(LED_RED);
+	  // TOGGLE_LED(LED_ORANGE);
+	  // HAL_Delay(500);
 
 	 // Send HID report
 	 /*mediaHID.keys = USB_HID_VOL_DEC;
@@ -184,17 +206,12 @@ int main(void)
 	 keyboardHID.key1 = USB_HID_KEY_L;
 	 keyboardHID.key2 = USB_HID_KEY_O;
 	 USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID, sizeof(struct keyboardHID_t));
-	 HAL_Delay(30);
+	 HAL_Delay(30000);
 	 keyboardHID.modifiers = 0;
 	 keyboardHID.key1 = 0;
 	 keyboardHID.key2 = 0;
 	 USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID, sizeof(struct keyboardHID_t));
 */
-
-	 HAL_Delay(1000);
-	 SET_LED(LED_RED);
-	 RESET_LED(LED_ORANGE);
-	 HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 
@@ -255,8 +272,41 @@ void SystemClock_Config(void)
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
-/* USER CODE BEGIN 4 */
+/** NVIC Configuration
+*/
+static void MX_NVIC_Init(void)
+{
+  /* TIM2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(TIM2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(TIM2_IRQn);
+}
 
+/* USER CODE BEGIN 4 */
+void ws2812_init(void)
+{
+
+}
+
+
+void ws2812_set_color(uint8_t red, uint8_t green, uint8_t blue)
+{
+
+}
+
+GPIO_PinState read_key(uint16_t row_pin, uint16_t col_pin)
+{
+	SET_ROW(row_pin);
+	GPIO_PinState col_state = HAL_GPIO_ReadPin(COL_GPIO, col_pin);
+	RESET_ROW(row_pin);
+
+	return col_state;
+}
+
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	TOGGLE_LED(LED_RED);
+}
 /* USER CODE END 4 */
 
 /**

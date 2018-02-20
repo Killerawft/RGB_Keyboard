@@ -1,3 +1,7 @@
-main.c:205:6:SystemClock_Config	88	static
-main.c:80:5:main	8	static
-main.c:267:6:_Error_Handler	0	static
+main.c:222:6:SystemClock_Config	88	static
+main.c:285:6:ws2812_init	0	static
+main.c:291:6:ws2812_set_color	0	static
+main.c:296:15:read_key	16	static
+main.c:84:5:main	16	static
+main.c:306:6:HAL_TIM_PeriodElapsedCallback	0	static
+main.c:317:6:_Error_Handler	0	static

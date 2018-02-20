@@ -9,7 +9,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * Copyright (c) 2017 STMicroelectronics International N.V. 
+  * Copyright (c) 2018 STMicroelectronics International N.V. 
   * All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without 
@@ -66,11 +66,30 @@
 
 /* USER CODE BEGIN Private defines */
 
+// LED Defines
 #define LED_RED			GPIO_PIN_13
 #define LED_ORANGE		GPIO_PIN_12
 #define SET_LED(LED) 	HAL_GPIO_WritePin(GPIOC, LED, GPIO_PIN_SET)
 #define RESET_LED(LED) 	HAL_GPIO_WritePin(GPIOC, LED, GPIO_PIN_RESET)
 #define TOGGLE_LED(LED) HAL_GPIO_TogglePin(GPIOC, LED)
+
+// Keyboard Defines
+#define ROW_GPIO		GPIOC
+#define COL_GPIO		GPIOA
+#define ROW_0			GPIO_PIN_0
+#define ROW_1			GPIO_PIN_1
+#define COL_0			GPIO_PIN_3
+#define COL_1			GPIO_PIN_2
+#define COL_2			GPIO_PIN_1
+#define COL_3			GPIO_PIN_0
+#define SET_ROW(PIN)	HAL_GPIO_WritePin(GPIOC, PIN, GPIO_PIN_SET)
+#define RESET_ROW(PIN)	HAL_GPIO_WritePin(GPIOC, PIN, GPIO_PIN_RESET)
+
+// WS2812 Defines
+#define WS2812_DATA_PIN		GPIO_PIN_8
+#define WS2812_DATA_PORT	GPIOA
+#define WS2812_DATA_SET		HAL_GPIO_WritePin(WS2812_DATA_PORT, WS2812_DATA_PIN, GPIO_PIN_SET)
+#define WS2812_DATA_RESET	HAL_GPIO_WritePin(WS2812_DATA_PORT, WS2812_DATA_PIN, GPIO_PIN_RESET)
 
 // USB media codes
 #define USB_HID_SCAN_NEXT 0x01
@@ -95,6 +114,7 @@
 #define USB_HID_KEY_A     0x04
 #define USB_HID_KEY_L     0x0F
 #define USB_HID_KEY_O     0x12
+
 
 /* USER CODE END Private defines */
 

@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
-  * File Name          : main.c
-  * Description        : Main program body
+  * @file           : main.c
+  * @brief          : Main program body
   ******************************************************************************
   * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -45,13 +45,14 @@
   *
   ******************************************************************************
   */
-
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
 #include "tim.h"
 #include "usart.h"
 #include "usb_device.h"
+#include "usb_hid_keycodes.h"
+#include "keyboard_layout.h"
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
@@ -74,37 +75,48 @@ static void MX_NVIC_Init(void);
 /* Private function prototypes -----------------------------------------------*/
 void ws2812_init(void);
 void ws2812_set_color(uint8_t red, uint8_t green, uint8_t blue);
+
+void init_keypad(void);
 GPIO_PinState read_key(uint16_t row_pin, uint16_t col_pin);
+void check_pressed_keys(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
-
-int main(void)
-{
-
-  /* USER CODE BEGIN 1 */
-  // HID Keyboard
-  struct keyboardHID_t {
+// HID Keyboard
+ struct keyboardHID_t {
 	  uint8_t id;
 	  uint8_t modifiers;
 	  uint8_t key1;
 	  uint8_t key2;
 	  uint8_t key3;
-  };
-  struct keyboardHID_t keyboardHID;
+ };
+ struct keyboardHID_t keyboardHID;
+
+ // HID Media
+ struct mediaHID_t {
+	uint8_t id;
+	uint8_t keys;
+ };
+ struct mediaHID_t mediaHID;
+
+/* USER CODE END 0 */
+
+/**
+  * @brief  The application entry point.
+  *
+  * @retval None
+  */
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
+  // HID Keyboard Init
   keyboardHID.id = 1;
   keyboardHID.modifiers = 0;
   keyboardHID.key1 = 0;
   keyboardHID.key2 = 0;
   keyboardHID.key3 = 0;
-  // HID Media
-  struct mediaHID_t {
-	uint8_t id;
-	uint8_t keys;
-  };
-  struct mediaHID_t mediaHID;
+
+  // HID Media Init
   mediaHID.id = 2;
   mediaHID.keys = 0;
   /* USER CODE END 1 */
@@ -133,7 +145,6 @@ int main(void)
 
   /* Initialize interrupts */
   MX_NVIC_Init();
-
   /* USER CODE BEGIN 2 */
   ws2812_init();
   /* USER CODE END 2 */
@@ -157,7 +168,8 @@ int main(void)
   RESET_LED(LED_ORANGE)
   HAL_Delay(500);*/
 
-  // SET_LED(LED_RED);
+  init_keypad();
+  SET_LED(LED_RED);
   // RESET_LED(LED_ORANGE);
 
   while (1)
@@ -166,15 +178,21 @@ int main(void)
 
   /* USER CODE BEGIN 3 */
 
-	  if (read_key(ROW_0, COL_0))
-	  {
-		 mediaHID.keys = USB_HID_VOL_DEC;
-		 USBD_HID_SendReport(&hUsbDeviceFS, &mediaHID, sizeof(struct mediaHID_t));
-		 HAL_Delay(30);
-		 mediaHID.keys = 0;
-		 USBD_HID_SendReport(&hUsbDeviceFS, &mediaHID, sizeof(struct mediaHID_t));
-		 HAL_Delay(30);
-	  }
+/*	 keyboardHID.modifiers = 0;
+	 keyboardHID.key1 = USB_HID_KEY_B;
+	 keyboardHID.key2 = 0;
+	 keyboardHID.key3 = 0;
+	 USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID, sizeof(struct keyboardHID_t));
+	 HAL_Delay(30);
+	 keyboardHID.modifiers = 0;
+	 keyboardHID.key1 = 0;
+	 keyboardHID.key2 = 0;
+	 keyboardHID.key3 = 0;
+	 USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID, sizeof(struct keyboardHID_t));
+	 HAL_Delay(3000);
+*/
+	  check_pressed_keys();
+	  HAL_Delay(100);
 
 
 	  // TOGGLE_LED(LED_RED);
@@ -217,8 +235,10 @@ int main(void)
 
 }
 
-/** System Clock Configuration
-*/
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
 void SystemClock_Config(void)
 {
 
@@ -272,8 +292,10 @@ void SystemClock_Config(void)
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
-/** NVIC Configuration
-*/
+/**
+  * @brief NVIC Configuration.
+  * @retval None
+  */
 static void MX_NVIC_Init(void)
 {
   /* TIM2_IRQn interrupt configuration */
@@ -293,13 +315,70 @@ void ws2812_set_color(uint8_t red, uint8_t green, uint8_t blue)
 
 }
 
+
+void init_keypad(void)
+{
+	SET_ROW(ROW_0);
+	SET_ROW(ROW_1);
+}
+
+
 GPIO_PinState read_key(uint16_t row_pin, uint16_t col_pin)
 {
-	SET_ROW(row_pin);
-	GPIO_PinState col_state = HAL_GPIO_ReadPin(COL_GPIO, col_pin);
 	RESET_ROW(row_pin);
+	GPIO_PinState col_state = HAL_GPIO_ReadPin(COL_GPIO, col_pin);
+	SET_ROW(row_pin);
 
-	return col_state;
+	return !col_state;
+}
+
+
+void check_pressed_keys(void)
+{
+
+	keyboardHID.key1 = 0;
+	keyboardHID.key2 = 0;
+	keyboardHID.key3 = 0;
+
+	for (uint8_t row = 0; row < ROWS_CNT; row++)
+	{
+		for (uint8_t col = 0; col < COLUMS_CNT; col++)
+		{
+			if(read_key(layout_rows_pins[row], layout_columns_pins[col]))
+			{
+				if(keyboardHID.modifiers == 0 && layout_keycodes[row][col] == 2) //USB_HID_KEY_LEFTSHIFT)
+				{
+					keyboardHID.modifiers = layout_keycodes[row][col];
+				}
+				else if (keyboardHID.key1 == 0)
+				{
+					keyboardHID.key1 = layout_keycodes[row][col];
+				}
+				else if (keyboardHID.key2 == 0)
+				{
+					keyboardHID.key2 = layout_keycodes[row][col];
+				}
+				else if (keyboardHID.key3 == 0)
+				{
+					keyboardHID.key3 = layout_keycodes[row][col];
+				}
+			}
+		}
+	}
+
+
+	if (keyboardHID.key1 != 0 || keyboardHID.key2 != 0 || keyboardHID.key3 != 0)
+	{
+		 USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID, sizeof(struct keyboardHID_t));
+		 HAL_Delay(30);
+		 keyboardHID.modifiers = 0;
+		 keyboardHID.key1 = 0;
+		 keyboardHID.key2 = 0;
+		 keyboardHID.key3 = 0;
+		 USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID, sizeof(struct keyboardHID_t));
+		 HAL_Delay(30);
+	}
+
 }
 
 
@@ -311,45 +390,43 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 /**
   * @brief  This function is executed in case of error occurrence.
-  * @param  None
+  * @param  file: The file name as string.
+  * @param  line: The line in file as a number.
   * @retval None
   */
-void _Error_Handler(char * file, int line)
+void _Error_Handler(char *file, int line)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   while(1) 
   {
   }
-  /* USER CODE END Error_Handler_Debug */ 
+  /* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef USE_FULL_ASSERT
-
+#ifdef  USE_FULL_ASSERT
 /**
-   * @brief Reports the name of the source file and the source line number
-   * where the assert_param error has occurred.
-   * @param file: pointer to the source file name
-   * @param line: assert_param error line source number
-   * @retval None
-   */
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
 void assert_failed(uint8_t* file, uint32_t line)
-{
+{ 
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* USER CODE END 6 */
-
 }
-
-#endif
-
-/**
-  * @}
-  */ 
+#endif /* USE_FULL_ASSERT */
 
 /**
   * @}
-*/ 
+  */
+
+/**
+  * @}
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

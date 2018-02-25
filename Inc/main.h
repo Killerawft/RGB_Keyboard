@@ -1,7 +1,8 @@
 /**
   ******************************************************************************
-  * File Name          : main.hpp
-  * Description        : This file contains the common defines of the application
+  * @file           : main.h
+  * @brief          : Header for main.c file.
+  *                   This file contains the common defines of the application.
   ******************************************************************************
   * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -45,12 +46,13 @@
   *
   ******************************************************************************
   */
+
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __MAIN_H
-#define __MAIN_H
-  /* Includes ------------------------------------------------------------------*/
+#ifndef __MAIN_H__
+#define __MAIN_H__
 
 /* Includes ------------------------------------------------------------------*/
+
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
@@ -73,47 +75,12 @@
 #define RESET_LED(LED) 	HAL_GPIO_WritePin(GPIOC, LED, GPIO_PIN_RESET)
 #define TOGGLE_LED(LED) HAL_GPIO_TogglePin(GPIOC, LED)
 
-// Keyboard Defines
-#define ROW_GPIO		GPIOC
-#define COL_GPIO		GPIOA
-#define ROW_0			GPIO_PIN_0
-#define ROW_1			GPIO_PIN_1
-#define COL_0			GPIO_PIN_3
-#define COL_1			GPIO_PIN_2
-#define COL_2			GPIO_PIN_1
-#define COL_3			GPIO_PIN_0
-#define SET_ROW(PIN)	HAL_GPIO_WritePin(GPIOC, PIN, GPIO_PIN_SET)
-#define RESET_ROW(PIN)	HAL_GPIO_WritePin(GPIOC, PIN, GPIO_PIN_RESET)
-
 // WS2812 Defines
 #define WS2812_DATA_PIN		GPIO_PIN_8
 #define WS2812_DATA_PORT	GPIOA
 #define WS2812_DATA_SET		HAL_GPIO_WritePin(WS2812_DATA_PORT, WS2812_DATA_PIN, GPIO_PIN_SET)
 #define WS2812_DATA_RESET	HAL_GPIO_WritePin(WS2812_DATA_PORT, WS2812_DATA_PIN, GPIO_PIN_RESET)
 
-// USB media codes
-#define USB_HID_SCAN_NEXT 0x01
-#define USB_HID_SCAN_PREV 0x02
-#define USB_HID_STOP      0x04
-#define USB_HID_EJECT     0x08
-#define USB_HID_PAUSE     0x10
-#define USB_HID_MUTE      0x20
-#define USB_HID_VOL_UP    0x40
-#define USB_HID_VOL_DEC   0x80
-
-// USB keyboard codes
-#define USB_HID_MODIFIER_LEFT_CTRL   0x01
-#define USB_HID_MODIFIER_LEFT_SHIFT  0x02
-#define USB_HID_MODIFIER_LEFT_ALT    0x04
-#define USB_HID_MODIFIER_LEFT_GUI    0x08 // (Win/Apple/Meta)
-#define USB_HID_MODIFIER_RIGHT_CTRL  0x10
-#define USB_HID_MODIFIER_RIGHT_SHIFT 0x20
-#define USB_HID_MODIFIER_RIGHT_ALT   0x40
-#define USB_HID_MODIFIER_RIGHT_GUI   0x80
-#define USB_HID_KEY_H     0x0B
-#define USB_HID_KEY_A     0x04
-#define USB_HID_KEY_L     0x0F
-#define USB_HID_KEY_O     0x12
 
 
 /* USER CODE END Private defines */
@@ -128,13 +95,6 @@ void _Error_Handler(char *, int);
 }
 #endif
 
-/**
-  * @}
-  */ 
+#endif /* __MAIN_H__ */
 
-/**
-  * @}
-*/ 
-
-#endif /* __MAIN_H */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -51,12 +51,10 @@
 #include "tim.h"
 #include "usart.h"
 #include "usb_device.h"
-#include "usb_hid_keycodes.h"
-#include "keyboard_layout.h"
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "keyboard_layout.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/

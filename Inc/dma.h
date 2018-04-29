@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file           : main.h
-  * @brief          : Header for main.c file.
-  *                   This file contains the common defines of the application.
+  * File Name          : dma.h
+  * Description        : This file contains all the function prototypes for
+  *                      the dma.c file
   ******************************************************************************
   * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -46,56 +46,43 @@
   *
   ******************************************************************************
   */
-
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __MAIN_H__
-#define __MAIN_H__
+#ifndef __dma_H
+#define __dma_H
+
+#ifdef __cplusplus
+ extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
+#include "main.h"
+
+/* DMA memory to memory transfer handles -------------------------------------*/
+extern void _Error_Handler(char*, int);
 
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
 
-/* Private define ------------------------------------------------------------*/
-
-/* ########################## Assert Selection ############################## */
-/**
-  * @brief Uncomment the line below to expanse the "assert_param" macro in the 
-  *        HAL drivers code
-  */
-/* #define USE_FULL_ASSERT    1U */
-
 /* USER CODE BEGIN Private defines */
-
-// LED Defines
-#define LED_RED			GPIO_PIN_13
-#define LED_ORANGE		GPIO_PIN_12
-#define SET_LED(LED) 	HAL_GPIO_WritePin(GPIOC, LED, GPIO_PIN_SET)
-#define RESET_LED(LED) 	HAL_GPIO_WritePin(GPIOC, LED, GPIO_PIN_RESET)
-#define TOGGLE_LED(LED) HAL_GPIO_TogglePin(GPIOC, LED)
-
-// WS2812 Defines
-#define WS2812_DATA_PIN		GPIO_PIN_8
-#define WS2812_DATA_PORT	GPIOA
-#define WS2812_DATA_SET		HAL_GPIO_WritePin(WS2812_DATA_PORT, WS2812_DATA_PIN, GPIO_PIN_SET)
-#define WS2812_DATA_RESET	HAL_GPIO_WritePin(WS2812_DATA_PORT, WS2812_DATA_PIN, GPIO_PIN_RESET)
-
-
 
 /* USER CODE END Private defines */
 
-#ifdef __cplusplus
- extern "C" {
-#endif
-void _Error_Handler(char *, int);
+void MX_DMA_Init(void);
 
-#define Error_Handler() _Error_Handler(__FILE__, __LINE__)
+/* USER CODE BEGIN Prototypes */
+
+/* USER CODE END Prototypes */
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __MAIN_H__ */
+#endif /* __dma_H */
+
+/**
+  * @}
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

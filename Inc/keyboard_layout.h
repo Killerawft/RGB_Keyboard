@@ -21,6 +21,9 @@
 #define SET_ROW(PIN)	HAL_GPIO_WritePin(ROW_GPIO, PIN, GPIO_PIN_SET)
 #define RESET_ROW(PIN)	HAL_GPIO_WritePin(ROW_GPIO, PIN, GPIO_PIN_RESET)
 
+
+#include "usb_hid_keycodes.h"
+
 __ALIGN_BEGIN static uint8_t layout_keycodes[ROWS_CNT][COLUMS_CNT] = {
 	{USB_HID_KEY_E, USB_HID_KEY_W, USB_HID_KEY_Q},
 	{USB_HID_KEY_D, USB_HID_KEY_S, USB_HID_KEY_A, 2} //USB_HID_KEY_LEFTSHIFT}

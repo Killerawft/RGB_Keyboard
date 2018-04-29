@@ -48,6 +48,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
+#include "dma.h"
+#include "i2c.h"
 #include "tim.h"
 #include "usart.h"
 #include "usb_device.h"
@@ -55,6 +57,9 @@
 
 /* USER CODE BEGIN Includes */
 #include "keyboard_layout.h"
+#include "LRAS1130.h"
+#include "usb_hid_keycodes.h"
+#include <stdbool.h>
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -137,9 +142,11 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_USART3_UART_Init();
   MX_USB_DEVICE_Init();
   MX_TIM2_Init();
+  MX_I2C1_Init();
 
   /* Initialize interrupts */
   MX_NVIC_Init();
@@ -166,6 +173,22 @@ int main(void)
   RESET_LED(LED_ORANGE)
   HAL_Delay(500);*/
 
+  /*uint8_t pictureOn[24] =
+  {0xFF, 0x07, 0xFF, 0x07, 0xFF, 0x07, 0xFF, 0x07,
+   0xFF, 0x07, 0xFF, 0x07, 0xFF, 0x07, 0xFF, 0x07,
+   0xFF, 0x07, 0xFF, 0x07, 0xFF, 0x07, 0xFF, 0x07,
+   0xFF, 0x07, 0xFF, 0x07, 0xFF, 0x07, 0xFF, 0x07 };*/
+
+  HAL_Delay(10);
+  AS1130_setRamConfiguration(RamConfiguration6);
+  AS1130_setCurrentSource(Current30mA);
+  AS1130_setScanLimit(ScanLimitFull);
+  AS1130_setOnOffFrameAllOn(0, 0);
+  //AS1130_setOnOffFrameAllOn(0, pictureOn, 0);
+  AS1130_setBlinkAndPwmSetAll(0, false, 0);
+  AS1130_startPicture(0, false);
+  AS1130_startChip();
+
   init_keypad();
   SET_LED(LED_RED);
   // RESET_LED(LED_ORANGE);
@@ -175,8 +198,8 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-
-/*	 keyboardHID.modifiers = 0;
+/*
+	 keyboardHID.modifiers = 0;
 	 keyboardHID.key1 = USB_HID_KEY_B;
 	 keyboardHID.key2 = 0;
 	 keyboardHID.key3 = 0;

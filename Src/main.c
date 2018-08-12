@@ -48,17 +48,17 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
+#include "cmsis_os.h"
 #include "dma.h"
-#include "i2c.h"
 #include "tim.h"
 #include "usart.h"
 #include "usb_device.h"
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
-#include "keyboard_layout.h"
-#include "LRAS1130.h"
-#include "usb_hid_keycodes.h"
+//#include "keyboard_layout.h"
+#include "keyboard.h"
+#include "display.h"
 #include <stdbool.h>
 /* USER CODE END Includes */
 
@@ -72,6 +72,7 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+void MX_FREERTOS_Init(void);
 static void MX_NVIC_Init(void);
 
 /* USER CODE BEGIN PFP */
@@ -79,28 +80,17 @@ static void MX_NVIC_Init(void);
 void ws2812_init(void);
 void ws2812_set_color(uint8_t red, uint8_t green, uint8_t blue);
 
-void init_keypad(void);
-GPIO_PinState read_key(uint16_t row_pin, uint16_t col_pin);
-void check_pressed_keys(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-// HID Keyboard
- struct keyboardHID_t {
-	  uint8_t id;
-	  uint8_t modifiers;
-	  uint8_t key1;
-	  uint8_t key2;
-	  uint8_t key3;
- };
- struct keyboardHID_t keyboardHID;
+#ifdef __GNUC__
+  /* With GCC, small printf (option LD Linker->Libraries->Small printf
+     set to 'Yes') calls __io_putchar() */
+  #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#else
+  #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#endif /* __GNUC__ */
 
- // HID Media
- struct mediaHID_t {
-	uint8_t id;
-	uint8_t keys;
- };
- struct mediaHID_t mediaHID;
 
 /* USER CODE END 0 */
 
@@ -112,16 +102,7 @@ void check_pressed_keys(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  // HID Keyboard Init
-  keyboardHID.id = 1;
-  keyboardHID.modifiers = 0;
-  keyboardHID.key1 = 0;
-  keyboardHID.key2 = 0;
-  keyboardHID.key3 = 0;
 
-  // HID Media Init
-  mediaHID.id = 2;
-  mediaHID.keys = 0;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -144,15 +125,21 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_USART3_UART_Init();
-  MX_USB_DEVICE_Init();
   MX_TIM2_Init();
-  MX_I2C1_Init();
 
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
-  ws2812_init();
+  //ws2812_init();
   /* USER CODE END 2 */
+
+  /* Call init function for freertos objects (in freertos.c) */
+  //MX_FREERTOS_Init();
+
+  /* Start scheduler */
+  //osKernelStart();
+  
+  /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -173,25 +160,13 @@ int main(void)
   RESET_LED(LED_ORANGE)
   HAL_Delay(500);*/
 
-  /*uint8_t pictureOn[24] =
-  {0xFF, 0x07, 0xFF, 0x07, 0xFF, 0x07, 0xFF, 0x07,
-   0xFF, 0x07, 0xFF, 0x07, 0xFF, 0x07, 0xFF, 0x07,
-   0xFF, 0x07, 0xFF, 0x07, 0xFF, 0x07, 0xFF, 0x07,
-   0xFF, 0x07, 0xFF, 0x07, 0xFF, 0x07, 0xFF, 0x07 };*/
 
-  HAL_Delay(10);
-  AS1130_setRamConfiguration(RamConfiguration6);
-  AS1130_setCurrentSource(Current30mA);
-  AS1130_setScanLimit(ScanLimitFull);
-  AS1130_setOnOffFrameAllOn(0, 0);
-  //AS1130_setOnOffFrameAllOn(0, pictureOn, 0);
-  AS1130_setBlinkAndPwmSetAll(0, false, 0);
-  AS1130_startPicture(0, false);
-  AS1130_startChip();
-
-  init_keypad();
+  //keyboard_init();
   SET_LED(LED_RED);
   // RESET_LED(LED_ORANGE);
+
+  //display_show_page(1);
+  //display_ts_set_line(1, "Das ist ein Test", 16);
 
   while (1)
   {
@@ -212,9 +187,6 @@ int main(void)
 	 USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID, sizeof(struct keyboardHID_t));
 	 HAL_Delay(3000);
 */
-	  check_pressed_keys();
-	  HAL_Delay(100);
-
 
 	  // TOGGLE_LED(LED_RED);
 	  // TOGGLE_LED(LED_ORANGE);
@@ -310,7 +282,7 @@ void SystemClock_Config(void)
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
   /* SysTick_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(SysTick_IRQn, 15, 0);
 }
 
 /**
@@ -320,11 +292,27 @@ void SystemClock_Config(void)
 static void MX_NVIC_Init(void)
 {
   /* TIM2_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(TIM2_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(TIM2_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(TIM2_IRQn);
 }
 
 /* USER CODE BEGIN 4 */
+
+/**
+  * @brief  Retargets the C library printf function to the USART.
+  * @param  None
+  * @retval None
+  */
+PUTCHAR_PROTOTYPE
+{
+  /* Place your implementation of fputc here */
+  /* e.g. write a character to the EVAL_COM1 and Loop until the end of transmission */
+  HAL_UART_Transmit(&huart3, (uint8_t *)&ch, 1, 0xFFFF);
+
+  return ch;
+}
+
+
 void ws2812_init(void)
 {
 
@@ -336,78 +324,28 @@ void ws2812_set_color(uint8_t red, uint8_t green, uint8_t blue)
 
 }
 
+/* USER CODE END 4 */
 
-void init_keypad(void)
-{
-	SET_ROW(ROW_0);
-	SET_ROW(ROW_1);
-}
-
-
-GPIO_PinState read_key(uint16_t row_pin, uint16_t col_pin)
-{
-	RESET_ROW(row_pin);
-	GPIO_PinState col_state = HAL_GPIO_ReadPin(COL_GPIO, col_pin);
-	SET_ROW(row_pin);
-
-	return !col_state;
-}
-
-
-void check_pressed_keys(void)
-{
-
-	keyboardHID.key1 = 0;
-	keyboardHID.key2 = 0;
-	keyboardHID.key3 = 0;
-
-	for (uint8_t row = 0; row < ROWS_CNT; row++)
-	{
-		for (uint8_t col = 0; col < COLUMS_CNT; col++)
-		{
-			if(read_key(layout_rows_pins[row], layout_columns_pins[col]))
-			{
-				if(keyboardHID.modifiers == 0 && layout_keycodes[row][col] == 2) //USB_HID_KEY_LEFTSHIFT)
-				{
-					keyboardHID.modifiers = layout_keycodes[row][col];
-				}
-				else if (keyboardHID.key1 == 0)
-				{
-					keyboardHID.key1 = layout_keycodes[row][col];
-				}
-				else if (keyboardHID.key2 == 0)
-				{
-					keyboardHID.key2 = layout_keycodes[row][col];
-				}
-				else if (keyboardHID.key3 == 0)
-				{
-					keyboardHID.key3 = layout_keycodes[row][col];
-				}
-			}
-		}
-	}
-
-
-	if (keyboardHID.key1 != 0 || keyboardHID.key2 != 0 || keyboardHID.key3 != 0)
-	{
-		 USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID, sizeof(struct keyboardHID_t));
-		 HAL_Delay(30);
-		 keyboardHID.modifiers = 0;
-		 keyboardHID.key1 = 0;
-		 keyboardHID.key2 = 0;
-		 keyboardHID.key3 = 0;
-		 USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID, sizeof(struct keyboardHID_t));
-		 HAL_Delay(30);
-	}
-
-}
-
-
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM1 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	TOGGLE_LED(LED_RED);
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM1) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
 }
-/* USER CODE END 4 */
 
 /**
   * @brief  This function is executed in case of error occurrence.

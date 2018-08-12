@@ -45,7 +45,7 @@
 									<listOptionValue builtIn="false" value="/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc" />
 									<listOptionValue builtIn="false" value="/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include" />
 									<listOptionValue builtIn="false" value="/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Drivers/CMSIS/Include" />
-								</option>
+								<listOptionValue builtIn="false" value="/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F" /><listOptionValue builtIn="false" value="/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/Third_Party/FreeRTOS/Source/include" /><listOptionValue builtIn="false" value="/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS" /></option>
 								<option id="com.atollic.truestudio.gcc.symbols.defined.1670122205" name="Defined symbols" superClass="com.atollic.truestudio.gcc.symbols.defined" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__weak=&quot;__attribute__((weak))&quot;" />
 									<listOptionValue builtIn="false" value="__packed=&quot;__attribute__((__packed__))&quot;" />
@@ -179,7 +179,7 @@
 									<listOptionValue builtIn="false" value="/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc" />
 									<listOptionValue builtIn="false" value="/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include" />
 									<listOptionValue builtIn="false" value="/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Drivers/CMSIS/Include" />
-								</option>
+								<listOptionValue builtIn="false" value="/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F" /><listOptionValue builtIn="false" value="/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/Third_Party/FreeRTOS/Source/include" /><listOptionValue builtIn="false" value="/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS" /></option>
 								<option id="com.atollic.truestudio.gcc.symbols.defined.1670122205" name="Defined symbols" superClass="com.atollic.truestudio.gcc.symbols.defined" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__weak=&quot;__attribute__((weak))&quot;" />
 									<listOptionValue builtIn="false" value="__packed=&quot;__attribute__((__packed__))&quot;" />

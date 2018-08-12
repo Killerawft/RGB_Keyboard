@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>RGB_Keyboard</name>
-	<comment />
+	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -15,7 +15,7 @@
 				</dictionary>
 				<dictionary>
 					<key>?name?</key>
-					<value />
+					<value></value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.append_environment</key>
@@ -23,7 +23,7 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildArguments</key>
-					<value />
+					<value></value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildCommand</key>
@@ -72,24 +72,24 @@
 	</natures>
 	<linkedResources>
 		<link>
-			
+			<name>Application</name>
 			<type>2</type>
-			
+			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
-			
+			<name>Drivers</name>
 			<type>2</type>
-			
+			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
-			
+			<name>Middlewares</name>
 			<type>2</type>
-			
+			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
-			
+			<name>Application/Src</name>
 			<type>2</type>
-			
+			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
 			<name>Application/TrueSTUDIO</name>
@@ -112,6 +112,11 @@
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
+			<name>Middlewares/FreeRTOS</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
 			<name>Middlewares/USB_Device_Library</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
@@ -119,67 +124,82 @@
 		<link>
 			<name>Application/TrueSTUDIO/startup_stm32f415xx.s</name>
 			<type>1</type>
-			<location>PARENT-1-PROJECT_LOC/startup_stm32f415xx.s</location>
+			<locationURI>PARENT-1-PROJECT_LOC/startup_stm32f415xx.s</locationURI>
 		</link>
 		<link>
-			<name>Application/User/LRAS1130.c</name>
+			<name>Application/User/display.c</name>
 			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Src/LRAS1130.c</location>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/display.c</locationURI>
 		</link>
 		<link>
-			<name>Application/User/LRAS1130.h</name>
+			<name>Application/User/dma.c</name>
 			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Inc/LRAS1130.h</location>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/dma.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/freertos.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/freertos.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/gpio.c</name>
 			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Src/gpio.c</location>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/gpio.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/keyboard.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/keyboard.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/main.c</name>
 			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Src/main.c</location>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/main.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/stm32f4xx_hal_msp.c</name>
 			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Src/stm32f4xx_hal_msp.c</location>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/stm32f4xx_hal_msp.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/stm32f4xx_hal_timebase_TIM.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/stm32f4xx_hal_timebase_TIM.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/stm32f4xx_it.c</name>
 			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Src/stm32f4xx_it.c</location>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/stm32f4xx_it.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/tim.c</name>
 			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Src/tim.c</location>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/tim.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/usart.c</name>
 			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Src/usart.c</location>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/usart.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/usb_device.c</name>
 			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Src/usb_device.c</location>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/usb_device.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/usbd_conf.c</name>
 			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Src/usbd_conf.c</location>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/usbd_conf.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/usbd_desc.c</name>
 			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Src/usbd_desc.c</location>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/usbd_desc.c</locationURI>
 		</link>
 		<link>
 			<name>Drivers/CMSIS/system_stm32f4xx.c</name>
 			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Src/system_stm32f4xx.c</location>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/system_stm32f4xx.c</locationURI>
 		</link>
 		<link>
 			<name>Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.c</name>
@@ -272,6 +292,51 @@
 			<location>/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c</location>
 		</link>
 		<link>
+			<name>Middlewares/FreeRTOS/cmsis_os.c</name>
+			<type>1</type>
+			<location>/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c</location>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/croutine.c</name>
+			<type>1</type>
+			<location>/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/Third_Party/FreeRTOS/Source/croutine.c</location>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/event_groups.c</name>
+			<type>1</type>
+			<location>/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c</location>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/heap_4.c</name>
+			<type>1</type>
+			<location>/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c</location>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/list.c</name>
+			<type>1</type>
+			<location>/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/Third_Party/FreeRTOS/Source/list.c</location>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/port.c</name>
+			<type>1</type>
+			<location>/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c</location>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/queue.c</name>
+			<type>1</type>
+			<location>/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/Third_Party/FreeRTOS/Source/queue.c</location>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/tasks.c</name>
+			<type>1</type>
+			<location>/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/Third_Party/FreeRTOS/Source/tasks.c</location>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/timers.c</name>
+			<type>1</type>
+			<location>/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/Third_Party/FreeRTOS/Source/timers.c</location>
+		</link>
+		<link>
 			<name>Middlewares/USB_Device_Library/usbd_core.c</name>
 			<type>1</type>
 			<location>/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c</location>
@@ -291,41 +356,5 @@
 			<type>1</type>
 			<location>/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c</location>
 		</link>
-	<link>
-			<name>Application/User/..</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link><link>
-			<name>Drivers</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link><link>
-			<name>Application/User/../Src</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link><link>
-			<name>Application</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link><link>
-			<name>Middlewares</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link><link>
-			<name>Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_i2c_ex.c</name>
-			<type>1</type>
-			<location>/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c</location>
-		</link><link>
-			<name>Application/User/i2c.c</name>
-			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Src/i2c.c</location>
-		</link><link>
-			<name>Application/User/dma.c</name>
-			<type>1</type>
-			<location>PARENT-2-PROJECT_LOC/Src/dma.c</location>
-		</link><link>
-			<name>Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_i2c.c</name>
-			<type>1</type>
-			<location>/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c</location>
-		</link></linkedResources>
+	</linkedResources>
 </projectDescription>

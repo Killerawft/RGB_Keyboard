@@ -81,36 +81,36 @@ WS2812_CHAIN_LEN_t WS2812_CHAIN_LEN;
 #define  WS2812_CH2_TIM_DMA_TRG1  TIM_DMA_CC4
 
 // ROW 3
-#define  WS2812_CH2_TIM_CLOCK     RCC_APB1Periph_TIM3
-#define  WS2812_CH2_TIM           TIM3
-#define  WS2812_CH2_TIM_AF        GPIO_AF_TIM3
-#define  WS2812_CH2_TIM_CH        1
-#define  WS2812_CH2_TIM_CCR_REG1  TIM3->CCR1
-#define  WS2812_CH2_TIM_DMA_TRG1  TIM_DMA_CC1
+#define  WS2812_CH3_TIM_CLOCK     RCC_APB1Periph_TIM3
+#define  WS2812_CH3_TIM           TIM3
+#define  WS2812_CH3_TIM_AF        GPIO_AF_TIM3
+#define  WS2812_CH3_TIM_CH        1
+#define  WS2812_CH3_TIM_CCR_REG1  TIM3->CCR1
+#define  WS2812_CH3_TIM_DMA_TRG1  TIM_DMA_CC1
 
 // ROW 4
-#define  WS2812_CH2_TIM_CLOCK     RCC_APB1Periph_TIM3
-#define  WS2812_CH2_TIM           TIM3
-#define  WS2812_CH2_TIM_AF        GPIO_AF_TIM3
-#define  WS2812_CH2_TIM_CH        2
-#define  WS2812_CH2_TIM_CCR_REG1  TIM3->CCR2
-#define  WS2812_CH2_TIM_DMA_TRG1  TIM_DMA_CC2
+#define  WS2812_CH4_TIM_CLOCK     RCC_APB1Periph_TIM3
+#define  WS2812_CH4_TIM           TIM3
+#define  WS2812_CH4_TIM_AF        GPIO_AF_TIM3
+#define  WS2812_CH4_TIM_CH        2
+#define  WS2812_CH4_TIM_CCR_REG1  TIM3->CCR2
+#define  WS2812_CH4_TIM_DMA_TRG1  TIM_DMA_CC2
 
 // ROW 5
-#define  WS2812_CH2_TIM_CLOCK     RCC_APB1Periph_TIM1
-#define  WS2812_CH2_TIM           TIM1
-#define  WS2812_CH2_TIM_AF        GPIO_AF_TIM31
-#define  WS2812_CH2_TIM_CH        1
-#define  WS2812_CH2_TIM_CCR_REG1  TIM1->CCR1
-#define  WS2812_CH2_TIM_DMA_TRG1  TIM_DMA_CC1
+#define  WS2812_CH5_TIM_CLOCK     RCC_APB1Periph_TIM1
+#define  WS2812_CH5_TIM           TIM1
+#define  WS2812_CH5_TIM_AF        GPIO_AF_TIM1
+#define  WS2812_CH5_TIM_CH        1
+#define  WS2812_CH5_TIM_CCR_REG1  TIM1->CCR1
+#define  WS2812_CH5_TIM_DMA_TRG1  TIM_DMA_CC1
 
 // ROW 6
-#define  WS2812_CH2_TIM_CLOCK     RCC_APB1Periph_TIM3
-#define  WS2812_CH2_TIM           TIM3
-#define  WS2812_CH2_TIM_AF        GPIO_AF_TIM3
-#define  WS2812_CH2_TIM_CH        4
-#define  WS2812_CH2_TIM_CCR_REG1  TIM3->CCR4
-#define  WS2812_CH2_TIM_DMA_TRG1  TIM_DMA_CC4
+#define  WS2812_CH6_TIM_CLOCK     RCC_APB1Periph_TIM1
+#define  WS2812_CH6_TIM           TIM1
+#define  WS2812_CH6_TIM_AF        GPIO_AF_TIM1
+#define  WS2812_CH6_TIM_CH        2
+#define  WS2812_CH6_TIM_CCR_REG1  TIM1->CCR2
+#define  WS2812_CH6_TIM_DMA_TRG1  TIM_DMA_CC2
 
 
 //--------------------------------------------------------------

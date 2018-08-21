@@ -32,14 +32,14 @@
 // Enable/Disable der einzelnen Ketten
 // 1=enable, 0=disable
 //--------------------------------------------------------------
-#define  WS2812_CH1_ENABLE   1  // [CH1 an PC6]
-#define  WS2812_CH2_ENABLE   1  // [CH2 an PB5]
-#define  WS2812_CH3_ENABLE   1  // [CH3 an PB0]
-#define  WS2812_CH4_ENABLE   1  // [CH4 an PB1]
-#define  WS2812_CH5_ENABLE   1  // [CH5 an PE9]
-#define  WS2812_CH6_ENABLE   1  // [CH6 an PE11]
-#define  WS2812_CH7_ENABLE   0  // [CH7 an PE13]
-#define  WS2812_CH8_ENABLE   0  // [CH8 an PE14]
+#define  WS2812_CH1_ENABLE   1  // [CH1 an PB8 ]
+#define  WS2812_CH2_ENABLE   1  // [CH2 an PC9 ]
+#define  WS2812_CH3_ENABLE   1  // [CH3 an PB4 ]
+#define  WS2812_CH4_ENABLE   1  // [CH4 an PB5 ]
+#define  WS2812_CH5_ENABLE   1  // [CH5 an PB13]
+#define  WS2812_CH6_ENABLE   1  // [CH6 an PB0 ]
+#define  WS2812_CH7_ENABLE   0  // [CH7        ]
+#define  WS2812_CH8_ENABLE   0  // [CH8        ]
 
 
 
@@ -115,12 +115,6 @@ WS2812_CHAIN_LEN_t WS2812_CHAIN_LEN;
 
 //--------------------------------------------------------------
 // GPIO-Pins (CH1...CH4) fuer Data-OUT 
-//
-// moegliche Pinbelegungen (bei TIM3)
-//   CH1 : [PA6, PB4, PC6]
-//   CH2 : [PA7, PB5, PC7]
-//   CH3 : [PB0, PC8]
-//   CH4 : [PB1, PC9] 
 //--------------------------------------------------------------
 #define  WS2812_CH1_CLOCK    RCC_AHB1Periph_GPIOB
 #define  WS2812_CH1_PORT     GPIOB
@@ -145,13 +139,7 @@ WS2812_CHAIN_LEN_t WS2812_CHAIN_LEN;
 
 
 //--------------------------------------------------------------
-// GPIO-Pins (CH5...CH8) fuer Data-OUT 
-//
-// moegliche Pinbelegungen (bei TIM1)
-//   CH5 : [PA8 , PE9]
-//   CH6 : [PA9 , PE11]
-//   CH7 : [PA10, PE13]
-//   CH8 : [PA11, PE14] 
+// GPIO-Pins (CH5...CH8) fuer Data-OUT
 //--------------------------------------------------------------
 #define  WS2812_CH5_CLOCK    RCC_AHB1Periph_GPIOB
 #define  WS2812_CH5_PORT     GPIOB
@@ -197,16 +185,16 @@ WS2812_CHAIN_LEN_t WS2812_CHAIN_LEN;
 //--------------------------------------------------------------
 #define  WS2812_DMA_CLOCK         RCC_AHB1Periph_DMA1
 
-#define  WS2812_DMA_CH1_STREAM    DMA1_Stream4
-#define  WS2812_DMA_CH1_CHANNEL   DMA_Channel_5
+#define  WS2812_DMA_CH1_STREAM    DMA1_Stream7
+#define  WS2812_DMA_CH1_CHANNEL   DMA_Channel_2
 
-#define  WS2812_DMA_CH2_STREAM    DMA1_Stream5
+#define  WS2812_DMA_CH2_STREAM    DMA1_Stream2
 #define  WS2812_DMA_CH2_CHANNEL   DMA_Channel_5
 
-#define  WS2812_DMA_CH3_STREAM    DMA1_Stream7
+#define  WS2812_DMA_CH3_STREAM    DMA1_Stream4
 #define  WS2812_DMA_CH3_CHANNEL   DMA_Channel_5
 
-#define  WS2812_DMA_CH4_STREAM    DMA1_Stream2
+#define  WS2812_DMA_CH4_STREAM    DMA1_Stream5
 #define  WS2812_DMA_CH4_CHANNEL   DMA_Channel_5
 
 
@@ -224,12 +212,14 @@ WS2812_CHAIN_LEN_t WS2812_CHAIN_LEN;
 #define  WS2812_DMA_CH5_STREAM    DMA2_Stream1
 #define  WS2812_DMA_CH5_CHANNEL   DMA_Channel_6
 
-#define  WS2812_DMA_CH6_STREAM    DMA2_Stream2
+#define  WS2812_DMA_CH6_STREAM    DMA2_Stream7
 #define  WS2812_DMA_CH6_CHANNEL   DMA_Channel_6
 
+// Unused
 #define  WS2812_DMA_CH7_STREAM    DMA2_Stream6
 #define  WS2812_DMA_CH7_CHANNEL   DMA_Channel_6
 
+// Unused
 #define  WS2812_DMA_CH8_STREAM    DMA2_Stream4
 #define  WS2812_DMA_CH8_CHANNEL   DMA_Channel_6
 
@@ -242,9 +232,9 @@ WS2812_CHAIN_LEN_t WS2812_CHAIN_LEN;
 //   CC3 => DMA1, Stream7
 //   CC4 => DMA1, Stream2
 //--------------------------------------------------------------
-#define  WS2812_DMA_CH1_IRQn      DMA1_Stream4_IRQn
-#define  WS2812_DMA_CH1_ISR       DMA1_Stream4_IRQHandler
-#define  WS2812_DMA_CH1_IRQ_FLAG  DMA_IT_TCIF4
+#define  WS2812_DMA_CH1_IRQn      DMA1_Stream7_IRQn
+#define  WS2812_DMA_CH1_ISR       DMA1_Stream7_IRQHandler
+#define  WS2812_DMA_CH1_IRQ_FLAG  DMA_IT_TCIF7
 
 #define  WS2812_DMA_CH2_IRQn      DMA1_Stream2_IRQn
 #define  WS2812_DMA_CH2_ISR       DMA1_Stream2_IRQHandler
@@ -258,10 +248,6 @@ WS2812_CHAIN_LEN_t WS2812_CHAIN_LEN;
 #define  WS2812_DMA_CH4_ISR       DMA1_Stream5_IRQHandler
 #define  WS2812_DMA_CH4_IRQ_FLAG  DMA_IT_TCIF5
 
-#define  WS2812_DMA_CH6_IRQn      DMA1_Stream7_IRQn
-#define  WS2812_DMA_CH6_ISR       DMA1_Stream7_IRQHandler
-#define  WS2812_DMA_CH6_IRQ_FLAG  DMA_IT_TCIF7
-
 
 
 //--------------------------------------------------------------
@@ -271,14 +257,20 @@ WS2812_CHAIN_LEN_t WS2812_CHAIN_LEN;
 //   CC3 => DMA2, Stream6
 //   CC4 => DMA2, Stream4
 //--------------------------------------------------------------
-#define  WS2812_DMA_CH5_IRQn      DMA2_Stream1_IRQn
-#define  WS2812_DMA_CH5_ISR       DMA2_Stream1_IRQHandler
-#define  WS2812_DMA_CH5_IRQ_FLAG  DMA_IT_TCIF1
+#define  WS2812_DMA_CH6_IRQn      DMA2_Stream1_IRQn
+#define  WS2812_DMA_CH6_ISR       DMA2_Stream1_IRQHandler
+#define  WS2812_DMA_CH6_IRQ_FLAG  DMA_IT_TCIF1
 
+#define  WS2812_DMA_CH5_IRQn      DMA2_Stream7_IRQn
+#define  WS2812_DMA_CH5_ISR       DMA2_Stream7_IRQHandler
+#define  WS2812_DMA_CH5_IRQ_FLAG  DMA_IT_TCIF7
+
+// Unused
 #define  WS2812_DMA_CH7_IRQn      DMA2_Stream6_IRQn
 #define  WS2812_DMA_CH7_ISR       DMA2_Stream6_IRQHandler
 #define  WS2812_DMA_CH7_IRQ_FLAG  DMA_IT_TCIF6
 
+// Unused
 #define  WS2812_DMA_CH8_IRQn      DMA2_Stream4_IRQn
 #define  WS2812_DMA_CH8_ISR       DMA2_Stream4_IRQHandler
 #define  WS2812_DMA_CH8_IRQ_FLAG  DMA_IT_TCIF4

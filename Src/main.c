@@ -49,13 +49,12 @@
 #include "main.h"
 #include "stm32f4xx_hal.h"
 #include "cmsis_os.h"
-#include "dma.h"
-#include "tim.h"
 #include "usart.h"
 #include "usb_device.h"
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
+#include "stm32_ub_ws2812_8ch.h"
 //#include "keyboard_layout.h"
 #include "keyboard.h"
 #include "display.h"
@@ -130,15 +129,15 @@ int main(void)
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
-  //ws2812_init();
+  ws2812_init();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
-  //MX_FREERTOS_Init();
+  MX_FREERTOS_Init();
 
   /* Start scheduler */
-  //osKernelStart();
-  
+  osKernelStart();
+
   /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */
@@ -162,7 +161,7 @@ int main(void)
 
 
   //keyboard_init();
-  SET_LED(LED_RED);
+
   // RESET_LED(LED_ORANGE);
 
   //display_show_page(1);
@@ -316,12 +315,52 @@ PUTCHAR_PROTOTYPE
 void ws2812_init(void)
 {
 
+	WS2812_RGB_t hg_col; //, vg_col;
+
+	UB_WS2812_Init();
+
+	WS2812_CHAIN_LEN.ch1 = 16;
+	WS2812_CHAIN_LEN.ch2 = 17;
+	WS2812_CHAIN_LEN.ch3 = 17;
+	WS2812_CHAIN_LEN.ch4 = 13;
+	WS2812_CHAIN_LEN.ch5 = 14;
+	WS2812_CHAIN_LEN.ch6 = 11;
+
+	hg_col.blue=0;
+	hg_col.green=255;
+	hg_col.red=0;
+
+	UB_WS2812_All_RGB(0xFF, hg_col);
+
+    UB_WS2812_RefreshAll();
 }
 
 
 void ws2812_set_color(uint8_t red, uint8_t green, uint8_t blue)
 {
 
+}
+
+void keyboard( void *pvParameters )
+{
+	for( ;; )
+  	{
+	  SET_LED(LED_RED)
+	  RESET_LED(LED_ORANGE)
+	  HAL_Delay(500);
+
+	  RESET_LED(LED_RED)
+	  SET_LED(LED_ORANGE)
+	  HAL_Delay(500);
+  	}
+
+  	/* Tasks must not attempt to return from their implementing
+  	function or otherwise exit.  In newer FreeRTOS port
+  	attempting to do so will result in an configASSERT() being
+  	called if it is defined.  If it is necessary for a task to
+  	exit then have the task call vTaskDelete( NULL ) to ensure
+  	its exit is clean. */
+  	vTaskDelete( NULL );
 }
 
 /* USER CODE END 4 */

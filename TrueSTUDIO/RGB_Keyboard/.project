@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>RGB_Keyboard</name>
-	<comment></comment>
+	<comment />
 	<projects>
 	</projects>
 	<buildSpec>
@@ -15,7 +15,7 @@
 				</dictionary>
 				<dictionary>
 					<key>?name?</key>
-					<value></value>
+					<value />
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.append_environment</key>
@@ -23,7 +23,7 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildArguments</key>
-					<value></value>
+					<value />
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildCommand</key>
@@ -72,24 +72,24 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>Application</name>
+			
 			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
+			
 		</link>
 		<link>
-			<name>Drivers</name>
+			
 			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
+			
 		</link>
 		<link>
-			<name>Middlewares</name>
+			
 			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
+			
 		</link>
 		<link>
-			<name>Application/Src</name>
+			
 			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
+			
 		</link>
 		<link>
 			<name>Application/TrueSTUDIO</name>
@@ -124,82 +124,84 @@
 		<link>
 			<name>Application/TrueSTUDIO/startup_stm32f415xx.s</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/startup_stm32f415xx.s</locationURI>
+			<location>PARENT-1-PROJECT_LOC/startup_stm32f415xx.s</location>
 		</link>
 		<link>
 			<name>Application/User/display.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Src/display.c</locationURI>
+			<location>PARENT-2-PROJECT_LOC/Src/display.c</location>
 		</link>
-		<link>
-			<name>Application/User/dma.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Src/dma.c</locationURI>
-		</link>
+		
 		<link>
 			<name>Application/User/freertos.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Src/freertos.c</locationURI>
+			<location>PARENT-2-PROJECT_LOC/Src/freertos.c</location>
 		</link>
 		<link>
 			<name>Application/User/gpio.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Src/gpio.c</locationURI>
+			<location>PARENT-2-PROJECT_LOC/Src/gpio.c</location>
 		</link>
 		<link>
 			<name>Application/User/keyboard.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Src/keyboard.c</locationURI>
+			<location>PARENT-2-PROJECT_LOC/Src/keyboard.c</location>
 		</link>
 		<link>
 			<name>Application/User/main.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Src/main.c</locationURI>
+			<location>PARENT-2-PROJECT_LOC/Src/main.c</location>
+		</link>
+		<link>
+			<name>Application/User/stm32_ub_ws2812_8ch.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Src/stm32_ub_ws2812_8ch.c</location>
 		</link>
 		<link>
 			<name>Application/User/stm32f4xx_hal_msp.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Src/stm32f4xx_hal_msp.c</locationURI>
+			<location>PARENT-2-PROJECT_LOC/Src/stm32f4xx_hal_msp.c</location>
 		</link>
 		<link>
 			<name>Application/User/stm32f4xx_hal_timebase_TIM.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Src/stm32f4xx_hal_timebase_TIM.c</locationURI>
+			<location>PARENT-2-PROJECT_LOC/Src/stm32f4xx_hal_timebase_TIM.c</location>
 		</link>
 		<link>
 			<name>Application/User/stm32f4xx_it.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Src/stm32f4xx_it.c</locationURI>
+			<location>PARENT-2-PROJECT_LOC/Src/stm32f4xx_it.c</location>
 		</link>
+		
 		<link>
-			<name>Application/User/tim.c</name>
+			<name>Application/User/ub_font_terminal_6x8.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Src/tim.c</locationURI>
+			<location>PARENT-2-PROJECT_LOC/Src/ub_font_terminal_6x8.c</location>
 		</link>
 		<link>
 			<name>Application/User/usart.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Src/usart.c</locationURI>
+			<location>PARENT-2-PROJECT_LOC/Src/usart.c</location>
 		</link>
 		<link>
 			<name>Application/User/usb_device.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Src/usb_device.c</locationURI>
+			<location>PARENT-2-PROJECT_LOC/Src/usb_device.c</location>
 		</link>
 		<link>
 			<name>Application/User/usbd_conf.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Src/usbd_conf.c</locationURI>
+			<location>PARENT-2-PROJECT_LOC/Src/usbd_conf.c</location>
 		</link>
 		<link>
 			<name>Application/User/usbd_desc.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Src/usbd_desc.c</locationURI>
+			<location>PARENT-2-PROJECT_LOC/Src/usbd_desc.c</location>
 		</link>
 		<link>
 			<name>Drivers/CMSIS/system_stm32f4xx.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Src/system_stm32f4xx.c</locationURI>
+			<location>PARENT-2-PROJECT_LOC/Src/system_stm32f4xx.c</location>
 		</link>
 		<link>
 			<name>Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.c</name>
@@ -356,5 +358,25 @@
 			<type>1</type>
 			<location>/home/rene/STM32Cube/Repository/STM32Cube_FW_F4_V1.19.0/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c</location>
 		</link>
-	</linkedResources>
+	<link>
+			<name>Application/User/..</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link><link>
+			<name>Drivers</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link><link>
+			<name>Application/User/../Src</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link><link>
+			<name>Application</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link><link>
+			<name>Middlewares</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link></linkedResources>
 </projectDescription>
